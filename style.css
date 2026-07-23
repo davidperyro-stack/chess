@@ -224,3 +224,61 @@ body {
     color: white;
     cursor: pointer;
 }
+
+#game-over-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: black;
+    padding: 35px 60px;
+    border-radius: 15px;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#eval-container {
+    width: 100%;
+}
+
+#eval-bar {
+    width: 160px;
+    height: 18px;
+    background: #333;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+#eval-fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%; /* center zero */
+    width: 0%;
+    background: linear-gradient(90deg, #4caf50, #8bc34a); /* white advantage (green) */
+    transform-origin: left center;
+    transition: width 220ms ease, left 220ms ease, background 220ms ease;
+}
+
+#eval-bar.negative #eval-fill {
+    background: linear-gradient(90deg, #e57373, #ef5350); /* black advantage (red) */
+}
+
+#eval-center {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255,255,255,0.08);
+    transform: translateX(-50%);
+}
+
+#eval-label {
+    color: #fff;
+    font-size: 14px;
+}
