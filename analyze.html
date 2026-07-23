@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <title>Analyze Board - Chess</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Analyze Board</h1>
+    <div style="margin-bottom:12px;"><a href="index.html">← Back to Game</a></div>
+
+    <div id="analyze-container">
+        <div id="analyze-board" aria-label="Chess analysis board"></div>
+
+        <aside id="analysis-panel">
+            <h2>Engine Analysis</h2>
+
+            <label for="depth">Depth:</label>
+            <input id="depth" type="number" min="1" max="20" value="12" style="width:80px; margin-left:8px;">
+            <button id="analyze-btn" type="button">Analyze</button>
+
+            <!-- Evaluation bar -->
+            <div id="eval-container" style="margin-top:12px; display:flex; align-items:center; gap:12px;">
+                <div id="eval-bar" role="img" aria-label="Evaluation bar" title="Positive = White advantage, Negative = Black advantage">
+                    <div id="eval-fill"></div>
+                    <div id="eval-center"></div>
+                </div>
+                <div id="eval-label" aria-live="polite" style="min-width:80px; text-align:left; font-family: monospace;">0.00</div>
+            </div>
+
+            <div id="analysis-output" style="margin-top:14px; font-family: monospace; white-space: pre-wrap;"></div>
+
+            <h3 style="margin-top:18px;">FEN / Controls</h3>
+            <textarea id="fen-input" rows="3" style="width:100%; font-family: monospace;">startpos</textarea>
+            <button id="load-fen" type="button" style="margin-top:8px;">Load FEN</button>
+            <button id="reset-pos" type="button" style="margin-top:8px; margin-left:6px;">Reset to Start</button>
+        </aside>
+    </div>
+
+    <script type="module" src="js/analyze.js"></script>
+
+</body>
+
+</html>
