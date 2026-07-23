@@ -16,7 +16,6 @@ function setDifficulty(level) {
     console.log("Difficulty:", difficulty);
 }
 
-// initialize button states and add listeners
 setDifficulty(difficulty);
 
 difficultyButtons.forEach(button => {
@@ -110,18 +109,40 @@ function applyMove(from, to, promotion) {
 
         clearSelection();
         drawBoard();
+        checkGameOver();
         updateMoveHistory();
 
         engine.postMessage("position fen " + game.fen());
-        // Ask the engine to search to the desired depth based on the selected difficulty.
-        // Stockfish uses "go depth N" to limit search by depth.
+
         engine.postMessage("go depth " + depths[difficulty]);
 
-        if (game.isCheckmate()) {
-            document
-                .getElementById("checkmate-message")
-                .classList.remove("hidden");
-        }
+
+
+        function checkGameOver() {
+
+    if (game.isCheckmate()) {
+
+        const winner = game.turn() === "w" ? "Black" : "White";
+        showGameOverMessage(`Checkmate!\n${winner} wins!`);
+
+    } else if (game.isStalemate()) {
+
+        showGameOverMessage("Draw by stalemate.");
+
+    } else if (game.isThreefoldRepetition()) {
+
+        showGameOverMessage("Draw by threefold repetition.");
+
+    } else if (game.isInsufficientMaterial()) {
+
+        showGameOverMessage("Draw by insufficient material.");
+
+    } else if (game.isDraw()) {
+
+        showGameOverMessage("Draw.");
+
+    }
+}
     }
 }
 
@@ -272,6 +293,12 @@ function updateMoveHistory() {
     }
 }
 
+function showGameOverMessage(message) {
+    const popup = document.getElementById("game-over-message");
+    popup.textContent = message;
+    popup.classList.remove("hidden");
+}
+
 drawBoard();
 updateMoveHistory();
 
@@ -294,5 +321,6 @@ engine.onmessage = function (event) {
 lastMove = playedMove;
 
     drawBoard();
+    checkGameOver();
     updateMoveHistory();
 };
