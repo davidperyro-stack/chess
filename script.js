@@ -115,8 +115,8 @@ function applyMove(from, to, promotion) {
         engine.postMessage("position fen " + game.fen());
 
         engine.postMessage("go depth " + depths[difficulty]);
-
-
+            }
+        }
 
         function checkGameOver() {
 
@@ -141,8 +141,6 @@ function applyMove(from, to, promotion) {
 
         showGameOverMessage("Draw.");
 
-    }
-}
     }
 }
 
