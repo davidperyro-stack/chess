@@ -1,10 +1,56 @@
 <html>
 
-    <head>
-        <title>Chess</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <title>Chess</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
 
     <h1>Chess</h1>
-    <div id="board"></div>
+
+    <div id="game-container">
+        <div id="board"></div>
+        <div id="sidebar">
+            <h2>Moves</h2>
+            <div id="move-history"></div>
+        </div>
+    </div>
+
+    <div id="promotion-overlay" class="hidden">
+        <div id="promotion-menu">
+            <div class="promotion-title">Choose promotion</div>
+            <div class="promotion-options">
+                <button class="promotion-option" data-piece="q">
+                    <img src="assets/pieces/wq.svg" alt="Queen">
+                    <span>Queen</span>
+                </button>
+                <button class="promotion-option" data-piece="r">
+                    <img src="assets/pieces/wr.svg" alt="Rook">
+                    <span>Rook</span>
+                </button>
+                <button class="promotion-option" data-piece="b">
+                    <img src="assets/pieces/wb.svg" alt="Bishop">
+                    <span>Bishop</span>
+                </button>
+                <button class="promotion-option" data-piece="n">
+                    <img src="assets/pieces/wn.svg" alt="Knight">
+                    <span>Knight</span>
+                </button>
+            </div>
+            <button id="promotion-cancel" type="button">Cancel</button>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <div id="checkmate-message" class="hidden">Checkmate!</div>
+
+    <div id="difficulty" role="tablist" aria-label="Engine difficulty">
+        <button class="difficulty-btn" data-level="Easy" type="button" aria-pressed="false">Easy</button>
+        <button class="difficulty-btn active" data-level="Medium" type="button" aria-pressed="true">Medium</button>
+        <button class="difficulty-btn" data-level="Hard" type="button" aria-pressed="false">Hard</button>
+    </div>
+    
+</body>
+
 </html>
