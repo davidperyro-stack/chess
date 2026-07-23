@@ -185,6 +185,20 @@ function drawBoard() {
             const pieceCode = getPieceCode(piece);
             const clickedSquare = toSquare(row, col);
 
+            if (row === 7) {
+    const fileLabel = document.createElement("span");
+    fileLabel.className = "file-label";
+    fileLabel.textContent = "abcdefgh"[col];
+    square.appendChild(fileLabel);
+}
+
+            if (col === 0) {
+    const rankLabel = document.createElement("span");
+    rankLabel.className = "rank-label";
+    rankLabel.textContent = 8 - row;
+    square.appendChild(rankLabel);
+}
+
             if (
                 lastMove &&
                 (
