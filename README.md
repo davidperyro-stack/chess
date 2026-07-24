@@ -29,7 +29,7 @@ No need to install anything. Just you need to have a browser and thats it!
 ## language used
 
 - HTML
-- CSS3
+- CSS
 - JavaScript
 
 # AI Declaration
