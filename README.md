@@ -17,7 +17,7 @@ No need to install anything. Just you need to have a browser and thats it!
 
   no need to install anything. just have a browser and open this link!
 
-  ##screenshots of the project
+  ## screenshots of the project
 <img width="1206" height="911" alt="image" src="https://github.com/user-attachments/assets/6d03cb9c-ff9a-4d8f-8bce-33baa5205c09" />
 <img width="923" height="910" alt="image" src="https://github.com/user-attachments/assets/535f649f-5fab-4141-bb99-f767db142022" />
 
