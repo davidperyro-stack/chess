@@ -272,12 +272,12 @@ function drawBoard() {
             });
 
             if (pieceCode) {
-                const img = document.createElement("img");
-                img.src = `assets/pieces/${pieceCode}.svg`;
-                img.style.width = "80%";
-                img.style.height = "80%";
-                square.appendChild(img);
-            }
+    const img = document.createElement("img");
+    img.src = `assets/pieces/${pieceCode}.svg`;
+    img.className = "piece";
+
+    square.appendChild(img);
+}
 
             board.appendChild(square);
         }
@@ -322,17 +322,39 @@ engine.onmessage = function (event) {
 
     if (!line.startsWith("bestmove")) return;
 
-    const move = line.split(" ")[1];
+    let move = line.split(" ")[1];
 
-   const playedMove = game.move({
-    from: move.substring(0,2),
-    to: move.substring(2,4),
-    promotion: move.length === 5 ? move[4] : undefined
-});
+    const mistakeChance = {
+        Easy: 0.50,
+        Medium: 0.15,
+        Hard: 0.05
+    };
 
-lastMove = playedMove;
+    if (Math.random() < mistakeChance[difficulty]) {
+        const legalMoves = game.moves({ verbose: true });
+        const randomMove = legalMoves[Math.floor(Math.random() * legalMoves.length)];
 
-    drawBoard();
-    checkGameOver();
-    updateMoveHistory();
+        move =
+            randomMove.from +
+            randomMove.to +
+            (randomMove.promotion || "");
+    }
+
+    setTimeout(() => {
+
+        const playedMove = game.move({
+            from: move.substring(0, 2),
+            to: move.substring(2, 4),
+            promotion: move.length === 5 ? move[4] : undefined
+        });
+
+        if (!playedMove) return;
+
+        lastMove = playedMove;
+
+        drawBoard();
+        checkGameOver();
+        updateMoveHistory();
+
+    }, 1500);
 };
