@@ -4,6 +4,8 @@ const game = new Chess();
 
 let difficulty = "Medium";
 
+let gameMode = "bot";
+
 const difficultyButtons = Array.from(document.querySelectorAll("#difficulty .difficulty-btn"));
 
 function setDifficulty(level) {
@@ -22,6 +24,24 @@ setDifficulty(difficulty);
 difficultyButtons.forEach(button => {
     button.addEventListener("click", () => {
         setDifficulty(button.dataset.level);
+    });
+});
+
+const modeButtons = Array.from(document.querySelectorAll("#mode-select .mode-btn"));
+const difficultyEl = document.getElementById("difficulty");
+
+function setGameMode(mode) {
+    gameMode = mode;
+    modeButtons.forEach(b => {
+        b.classList.toggle("active", b.dataset.mode === mode);
+    });
+    difficultyEl.style.display = mode === "bot" ? "" : "none";
+    resetGame();
+}
+
+modeButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        setGameMode(button.dataset.mode);
     });
 });
 
@@ -159,9 +179,10 @@ function applyMove(from, to, promotion) {
         checkGameOver();
         updateMoveHistory();
 
-        engine.postMessage("position fen " + game.fen());
-
-        engine.postMessage("go depth " + depths[difficulty]);
+        if (gameMode === "bot") {
+            engine.postMessage("position fen " + game.fen());
+            engine.postMessage("go depth " + depths[difficulty]);
+        }
     }
 }
 
@@ -474,6 +495,19 @@ function showGameOverMessage(message) {
 drawBoard();
 updateMoveHistory();
 
+function resetGame() {
+    game.reset();
+    lastMove = null;
+    pendingMove = null;
+    clearSelection();
+    promotionOverlay.classList.add("hidden");
+    document.getElementById("game-over-message").classList.add("hidden");
+    engine.postMessage("stop");
+    engine.postMessage("ucinewgame");
+    drawBoard();
+    updateMoveHistory();
+}
+
 engine.onmessage = function (event) {
 
     const line = event.data;
@@ -481,6 +515,8 @@ engine.onmessage = function (event) {
     console.log(line);
 
     if (!line.startsWith("bestmove")) return;
+
+    if (gameMode !== "bot") return;
 
     let move = line.split(" ")[1];
 
