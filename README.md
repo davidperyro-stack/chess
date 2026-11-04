@@ -1,5 +1,5 @@
 # Chess Game 
-A chess project that has analysis board and a working playable bot with diffrent difficulties!!
+A chess project that has a working playable bot with diffrent difficulties and local multiplayer!!
 
 # Why i did this?
 I did this project to learn javascript (and of course HTML) And because i always loved creating things
